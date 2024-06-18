@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>醫療器材商作答區</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        .quiz-container {
+            width: 60%;
+            margin: 0 auto;
+            text-align: left;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .options {
+            margin-bottom: 20px;
+        }
+        .option {
+            margin: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .option:hover {
+            background-color: #e0e0e0;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>醫療器材法規知識大哉問</h1>
+    <div class="quiz-container">
+        <div class="question">
+            {{Question.Question}}
+        </div>
+        <div class="options">
+            {% for i in Question.Selection.split(',') %}
+            <div class='option' onclick="checkAnswer(this);">{{i}}</div>
+            {% endfor %}
+            <!-- <div class="option" onclick="checkAnswer(this, 'correct')">A. 歐洲標準化委員會 (European Committee for Standardization)</div>
+            <div class="option" onclick="checkAnswer(this, 'incorrect')">B. 歐洲市場通用 (Common European Market)</div>
+            <div class="option" onclick="checkAnswer(this, 'incorrect')">C. 歐洲共同市場 (Common European Market)</div>
+            <div class="option" onclick="checkAnswer(this, 'incorrect')">D. 歐洲適合性 (European Conformity)</div> -->
+        </div>
+        <div class="result" id="result"></div>
+        <a href="/next/" class="button">下一題</a>
+    </div>
+
+    <script>
+        let correctAnswers = {{RightNum}};
+
+        function checkAnswer(option) {
+            if (option.innerHTML === '{{Question.Answer}}') {
+                option.style.backgroundColor = '#5cb85c'; // Green for correct
+                correctAnswers++;
+            } else {
+                option.style.backgroundColor = '#d9534f'; // Red for incorrect
+            }
+
+            // Disable clicking on other options after one is selected
+            let options = document.querySelectorAll('.option');
+            options.forEach(function(opt) {
+                opt.onclick = null;
+            });
+
+            // Display detailed answer
+            let resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<p>答對題數：${correctAnswers}</p><p>詳細解答：{{Question.Detail}}</p>`;
+
+            let NexButt = document.querySelector('a.button');
+            NexButt.href = '/next/'+ correctAnswers;
+        }
+    </script>
+</body>
+</html>
