@@ -1,14 +1,15 @@
 # hello.py
-import pandas as pd
-import random
-from flask import Flask, request, render_template
+import random,json
+from flask import Flask, render_template
 
 def getQA(fname):
-    df = pd.read_excel(fname)
-    QA = df.T.to_dict()
-    Question = []
-    for i in QA.values():
-        Question.append(i)
+    # df = pd.read_excel(fname)
+    # QA = df.T.to_dict()
+    # Question = []
+    # for i in QA.values():
+    #     Question.append(i)
+    with open(fname,'r',encoding='utf8')as f:
+        Question = json.loads(f.read())
     return Question
 
 def selectionModifier(s):
@@ -49,7 +50,7 @@ def error():
     raise RuntimeError
 
 if __name__ == "__main__":
-    pQAs = getQA('prof.xlsx')
-    nQAs = getQA('normal.xlsx')
+    pQAs = getQA('prof.json')
+    nQAs = getQA('normal.json')
     thisQA = []
     app.run()
