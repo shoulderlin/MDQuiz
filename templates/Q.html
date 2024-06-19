@@ -83,6 +83,7 @@
 
     <script>
         let correctAnswers = {{RightNum}};
+        let detail = {{Question.Detail}}
 
         function checkAnswer(option) {
             if (option.innerHTML === '{{Question.Answer}}') {
@@ -100,8 +101,12 @@
 
             // Display detailed answer
             let resultDiv = document.getElementById('result');
+            if (detail != 'None'){
             resultDiv.innerHTML = `<p>答對題數：${correctAnswers}</p><p>詳細解答：{{Question.Detail}}</p>`;
-
+        }else{
+            resultDiv.innerHTML = `<p>答對題數：${correctAnswers}</p>`;
+        }
+            
             let NexButt = document.querySelector('a.button');
             NexButt.href = '/next/'+ correctAnswers;
         }
