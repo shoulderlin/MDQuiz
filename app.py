@@ -29,7 +29,7 @@ def index():
 
 @app.route("/start/<Playertype>")
 def start(Playertype):
-    global thisQA
+    global thisQA,pQAs,nQAs
     if Playertype=='professional':
         thisQA = pQAs.copy()
     elif Playertype=='normal':
