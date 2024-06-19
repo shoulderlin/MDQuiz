@@ -41,6 +41,8 @@ def start(Playertype):
 def next(score):
     if score >= 5:
         return render_template('win.html')
+    if len(thisQA)==0:
+        return render_template('lose.html')
     global thisQA
     resp,thisQA = getoneQ(thisQA)
     return render_template('Q.html',Question=resp,RightNum=score)
