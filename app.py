@@ -39,11 +39,11 @@ def start(Playertype):
 
 @app.route("/next/<int:score>")
 def next(score):
+    global thisQA
     if score >= 5:
         return render_template('win.html')
     if len(thisQA)==0:
         return render_template('lose.html')
-    global thisQA
     resp,thisQA = getoneQ(thisQA)
     return render_template('Q.html',Question=resp,RightNum=score)
 
