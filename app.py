@@ -29,11 +29,11 @@ def index():
 
 @app.route("/start/<Playertype>")
 def start(Playertype):
-    global thisQA,pQAs,nQAs
+    global thisQA
     if Playertype=='professional':
-        thisQA = pQAs.copy()
+        thisQA = getQA('prof.json')
     elif Playertype=='normal':
-        thisQA = nQAs.copy()
+        thisQA = getQA('normal.json')
     resp,thisQA = getoneQ(thisQA)
     return render_template('Q.html',Question=resp,RightNum=0)
 
