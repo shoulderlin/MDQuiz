@@ -78,7 +78,7 @@
             <div class="option" onclick="checkAnswer(this, 'incorrect')">D. 歐洲適合性 (European Conformity)</div> -->
         </div>
         <div class="result" id="result"></div>
-        <a href="/next/" class="button">下一題</a>
+        <a href="" style="display: none;" class="button">下一題</a>
     </div>
 
     <script>
@@ -109,6 +109,7 @@
             
             let NexButt = document.querySelector('a.button');
             NexButt.href = '/next/'+ correctAnswers;
+            NexButt.style.display = '';
         }
     </script>
 </body>
